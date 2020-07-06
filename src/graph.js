@@ -14,6 +14,7 @@ export default class Graph {
       last: this._last,
       sum: this._sum,
       delta: this._delta,
+      diff: this._diff,
     };
 
     this._history = undefined;
@@ -217,8 +218,14 @@ export default class Graph {
     return this._maximum(items) - this._minimum(items);
   }
 
+  _diff(items) {
+    return this._last(items) - this._first(items);
+  }
+
   _lastValue(items) {
     if (this.aggregateFuncName === 'delta') {
+      return 0;
+    } else if (this.aggregateFuncName === 'diff') {
       return 0;
     } else {
       return parseFloat(items[items.length - 1].state) || 0;
